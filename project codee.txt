@@ -1,0 +1,2626 @@
+dataembedding.m
+
+  clc;
+i = imread('tiger.bmp');
+size(i);
+img = imresize(i,[100 100]);
+title('cover image');
+figure,imshow(img);
+redchannel = img(:,:,1);
+greenchannel = img(:,:,2);
+bluechannel = img(:,:,3);
+
+w=putwatermarkdata( );
+disp(w);
+wlength=length(w); 
+
+%fid=fopen('watermark.str','w');
+%fprintf(fid,'%d',w);
+%fid=fclose(fid);
+
+save('watermark.mat','w');
+lengthw=wlength;
+
+
+B1=bluechannel(1:20,1:20);
+[LL1,LH1,HL1,HH1] = fourblocks(B1);
+[U1,S1,V1] = usvdivision(LH1);
+[u1,s1,v1] = usvdivision(HL1);
+if (wlength>0)
+    [U1(2,1),U1(3,1)] = embed(U1(2,1),U1(3,1),w(1));
+    wlength=wlength-1;
+end
+if (wlength>0)
+    [u1(2,1),u1(3,1)] = embed(u1(2,1),u1(3,1),w(2));
+    wlength=wlength-1;
+end
+iLH1 = invsvd(U1,S1,V1);
+iHL1 = invsvd(u1,s1,v1);
+ib1=fourtoone(LL1,iLH1,iHL1,HH1);
+iB1=uint8(ib1);
+
+
+B2=bluechannel(1:20,21:40);
+[LL2,LH2,HL2,HH2] = fourblocks(B2);
+[U2,S2,V2] = usvdivision(LH2);
+[u2,s2,v2] = usvdivision(HL2);
+if (wlength>0)
+    [U2(2,1),U2(3,1)] = embed(U2(2,1),U2(3,1),w(3));
+    wlength=wlength-1;
+end
+if (wlength>0)
+    [u2(2,1),u2(3,1)] = embed(u2(2,1),u2(3,1),w(4));
+    wlength=wlength-1;
+end
+iLH2 = invsvd(U2,S2,V2);
+iHL2 = invsvd(u2,s2,v2);
+ib2=fourtoone(LL2,iLH2,iHL2,HH2);
+iB2=uint8(ib2);
+
+
+
+B3=bluechannel(1:20,41:60);
+[LL3,LH3,HL3,HH3] = fourblocks(B3);
+[U3,S3,V3] = usvdivision(LH3);
+[u3,s3,v3] = usvdivision(HL3);
+if (wlength>0)
+    [U3(2,1),U3(3,1)] = embed(U3(2,1),U3(3,1),w(5));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u3(2,1),u3(3,1)] = embed(u3(2,1),u3(3,1),w(6));
+    wlength=wlength-1;
+end
+iLH3 = invsvd(U3,S3,V3);
+iHL3 = invsvd(u3,s3,v3);
+ib3=fourtoone(LL3,iLH3,iHL3,HH3);
+iB3=uint8(ib3);
+ 
+
+B4=bluechannel(1:20,61:80);
+[LL4,LH4,HL4,HH4] = fourblocks(B4);
+[U4,S4,V4] = usvdivision(LH4);
+[u4,s4,v4] = usvdivision(HL4);
+if (wlength>0)
+    [U4(2,1),U4(3,1)] = embed(U4(2,1),U4(3,1),w(7));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u4(2,1),u4(3,1)] = embed(u4(2,1),u4(3,1),w(8));
+    wlength=wlength-1;
+end
+iLH4 = invsvd(U4,S4,V4);
+iHL4 = invsvd(u4,s4,v4);
+ib4=fourtoone(LL4,iLH4,iHL4,HH4);
+iB4=uint8(ib4);
+
+B5=bluechannel(1:20,81:100);
+[LL5,LH5,HL5,HH5] = fourblocks(B5);
+[U5,S5,V5] = usvdivision(LH5);
+[u5,s5,v5] = usvdivision(HL5);
+if (wlength>0)
+    [U5(2,1),U5(3,1)] = embed(U5(2,1),U5(3,1),w(9));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u5(2,1),u5(3,1)] = embed(u5(2,1),u5(3,1),w(10));
+    wlength=wlength-1;
+end
+iLH5 = invsvd(U5,S5,V5);
+iHL5 = invsvd(u5,s5,v5);
+ib5=fourtoone(LL5,iLH5,iHL5,HH5);
+iB5=uint8(ib5);
+
+B6=bluechannel(21:40,1:20);
+[LL6,LH6,HL6,HH6] = fourblocks(B6);
+[U6,S6,V6] = usvdivision(LH6);
+[u6,s6,v6] = usvdivision(HL6);
+if (wlength>0)
+    [U6(2,1),U6(3,1)] = embed(U6(2,1),U6(3,1),w(11));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u6(2,1),u6(3,1)] = embed(u6(2,1),u6(3,1),w(12));
+    wlength=wlength-1;
+end
+iLH6 = invsvd(U6,S6,V6);
+iHL6 = invsvd(u6,s6,v6);
+ib6=fourtoone(LL6,iLH6,iHL6,HH6);
+iB6=uint8(ib6);
+
+
+B7=bluechannel(21:40,21:40);
+[LL7,LH7,HL7,HH7] = fourblocks(B7);
+[U7,S7,V7] = usvdivision(LH7);
+[u7,s7,v7] = usvdivision(HL7);
+if (wlength>0)
+    [U7(2,1),U7(3,1)] = embed(U7(2,1),U7(3,1),w(13));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u7(2,1),u7(3,1)] = embed(u7(2,1),u7(3,1),w(14));
+    wlength=wlength-1;
+end
+iLH7 = invsvd(U7,S7,V7);
+iHL7 = invsvd(u7,s7,v7);
+ib7=fourtoone(LL7,iLH7,iHL7,HH7);
+iB7=uint8(ib7);
+
+
+B8=bluechannel(21:40,41:60);
+[LL8,LH8,HL8,HH8] = fourblocks(B8);
+[U8,S8,V8] = usvdivision(LH8);
+[u8,s8,v8] = usvdivision(HL8);
+if (wlength>0)
+    [U8(2,1),U8(3,1)] = embed(U8(2,1),U8(3,1),w(15));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u8(2,1),u8(3,1)] = embed(u8(2,1),u8(3,1),w(16));
+    wlength=wlength-1;
+end
+
+iLH8 = invsvd(U8,S8,V8);
+iHL8 = invsvd(u8,s8,v8);
+ib8=fourtoone(LL8,iLH8,iHL8,HH8);
+iB8=uint8(ib8);
+
+
+B9=bluechannel(21:40,61:80);
+[LL9,LH9,HL9,HH9] = fourblocks(B9);
+[U9,S9,V9] = usvdivision(LH9);
+[u9,s9,v9] = usvdivision(HL9);
+if (wlength>0)
+    [U9(2,1),U9(3,1)] = embed(U9(2,1),U9(3,1),w(17));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u9(2,1),u9(3,1)] = embed(u9(2,1),u9(3,1),w(18));
+    wlength=wlength-1;
+end
+
+iLH9 = invsvd(U9,S9,V9);
+iHL9 = invsvd(u9,s9,v9);
+ib9=fourtoone(LL9,iLH9,iHL9,HH9);
+iB9=uint8(ib9);
+
+
+B10=bluechannel(21:40,81:100);
+[LL10,LH10,HL10,HH10] = fourblocks(B10);
+[U10,S10,V10] = usvdivision(LH10);
+[u10,s10,v10] = usvdivision(HL10);
+if (wlength>0)
+    [U10(2,1),U10(3,1)] = embed(U10(2,1),U10(3,1),w(19));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u10(2,1),u10(3,1)] = embed(u10(2,1),u10(3,1),w(20));
+    wlength=wlength-1;
+end
+
+iLH10 = invsvd(U10,S10,V10);
+iHL10 = invsvd(u10,s10,v10);
+ib10=fourtoone(LL10,iLH10,iHL10,HH10);
+iB10=uint8(ib10);
+
+
+B11=bluechannel(41:60,1:20);
+[LL11,LH11,HL11,HH11] = fourblocks(B11);
+[U11,S11,V11] = usvdivision(LH11);
+[u11,s11,v11] = usvdivision(HL11);
+if (wlength>0)
+    [U11(2,1),U11(3,1)] = embed(U11(2,1),U11(3,1),w(21));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u11(2,1),u11(3,1)] = embed(u11(2,1),u11(3,1),w(22));
+    wlength=wlength-1;
+end
+
+iLH11 = invsvd(U11,S11,V11);
+iHL11 = invsvd(u11,s11,v11);
+ib11=fourtoone(LL11,iLH11,iHL11,HH11);
+iB11=uint8(ib11);
+
+B12=bluechannel(41:60,21:40);
+[LL12,LH12,HL12,HH12] = fourblocks(B12);
+[U12,S12,V12] = usvdivision(LH12);
+[u12,s12,v12] = usvdivision(HL12);
+if (wlength>0)
+    [U12(2,1),U12(3,1)] = embed(U12(2,1),U12(3,1),w(23));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u12(2,1),u12(3,1)] = embed(u12(2,1),u12(3,1),w(24));
+    wlength=wlength-1;
+end
+
+iLH12 = invsvd(U12,S12,V12);
+iHL12 = invsvd(u12,s12,v12);
+ib12=fourtoone(LL12,iLH12,iHL12,HH12);
+iB12=uint8(ib12);
+
+B13=bluechannel(41:60,41:60);
+[LL13,LH13,HL13,HH13] = fourblocks(B13);
+[U13,S13,V13] = usvdivision(LH13);
+[u13,s13,v13] = usvdivision(HL13);
+if (wlength>0)
+    [U13(2,1),U13(3,1)] = embed(U13(2,1),U13(3,1),w(25));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u13(2,1),u13(3,1)] = embed(u13(2,1),u13(3,1),w(26));
+    wlength=wlength-1;
+end
+
+iLH13 = invsvd(U13,S13,V13);
+iHL13 = invsvd(u13,s13,v13);
+ib13=fourtoone(LL13,iLH13,iHL13,HH13);
+iB13=uint8(ib13);
+
+
+B14=bluechannel(41:60,61:80);
+[LL14,LH14,HL14,HH14] = fourblocks(B14);
+[U14,S14,V14] = usvdivision(LH14);
+[u14,s14,v14] = usvdivision(HL14);
+if (wlength>0)
+    [U14(2,1),U14(3,1)] = embed(U14(2,1),U14(3,1),w(27));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u14(2,1),u14(3,1)] = embed(u14(2,1),u14(3,1),w(28));
+    wlength=wlength-1;
+end
+
+iLH14 = invsvd(U14,S14,V14);
+iHL14 = invsvd(u14,s14,v14);
+ib14=fourtoone(LL14,iLH14,iHL14,HH14);
+iB14=uint8(ib14);
+
+
+B15=bluechannel(41:60,81:100);
+[LL15,LH15,HL15,HH15] = fourblocks(B15);
+[U15,S15,V15] = usvdivision(LH15);
+[u15,s15,v15] = usvdivision(HL15);
+if (wlength>0)
+    [U15(2,1),U15(3,1)] = embed(U15(2,1),U15(3,1),w(29));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u15(2,1),u15(3,1)] = embed(u15(2,1),u15(3,1),w(30));
+    wlength=wlength-1;
+end
+
+iLH15 = invsvd(U15,S15,V15);
+iHL15 = invsvd(u15,s15,v15);
+ib15=fourtoone(LL15,iLH15,iHL15,HH15);
+iB15=uint8(ib15);
+
+
+B16=bluechannel(61:80,1:20);
+[LL16,LH16,HL16,HH16] = fourblocks(B16);
+[U16,S16,V16] = usvdivision(LH16);
+[u16,s16,v16] = usvdivision(HL16);
+if (wlength>0)
+    [U16(2,1),U16(3,1)] = embed(U16(2,1),U16(3,1),w(31));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u16(2,1),u16(3,1)] = embed(u16(2,1),u16(3,1),w(32));
+    wlength=wlength-1;
+end
+
+iLH16 = invsvd(U16,S16,V16);
+iHL16 = invsvd(u16,s16,v16);
+ib16=fourtoone(LL16,iLH16,iHL16,HH16);
+iB16=uint8(ib16);
+
+
+B17=bluechannel(61:80,21:40);
+[LL17,LH17,HL17,HH17] = fourblocks(B17);
+[U17,S17,V17] = usvdivision(LH17);
+[u17,s17,v17] = usvdivision(HL17);
+if (wlength>0)
+    [U17(2,1),U17(3,1)] = embed(U17(2,1),U17(3,1),w(33));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u17(2,1),u17(3,1)] = embed(u17(2,1),u17(3,1),w(34));
+    wlength=wlength-1;
+end
+
+iLH17 = invsvd(U17,S17,V17);
+iHL17 = invsvd(u17,s17,v17);
+ib17=fourtoone(LL17,iLH17,iHL17,HH17);
+iB17=uint8(ib17);
+
+
+B18=bluechannel(61:80,41:60);
+[LL18,LH18,HL18,HH18] = fourblocks(B18);
+[U18,S18,V18] = usvdivision(LH18);
+[u18,s18,v18] = usvdivision(HL18);
+if (wlength>0)
+    [U18(2,1),U18(3,1)] = embed(U18(2,1),U18(3,1),w(35));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u18(2,1),u18(3,1)] = embed(u18(2,1),u18(3,1),w(36));
+    wlength=wlength-1;
+end
+
+iLH18 = invsvd(U18,S18,V18);
+iHL18 = invsvd(u18,s18,v18);
+ib18=fourtoone(LL18,iLH18,iHL18,HH18);
+iB18=uint8(ib18);
+
+
+B19=bluechannel(61:80,61:80);
+[LL19,LH19,HL19,HH19] = fourblocks(B19);
+[U19,S19,V19] = usvdivision(LH19);
+[u19,s19,v19] = usvdivision(HL19);
+if (wlength>0)
+    [U19(2,1),U19(3,1)] = embed(U19(2,1),U19(3,1),w(37));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u19(2,1),u19(3,1)] = embed(u19(2,1),u19(3,1),w(38));
+    wlength=wlength-1;
+end
+
+iLH19 = invsvd(U19,S19,V19);
+iHL19 = invsvd(u19,s19,v19);
+ib19=fourtoone(LL19,iLH19,iHL19,HH19);
+iB19=uint8(ib19);
+
+
+B20=bluechannel(61:80,81:100);
+[LL20,LH20,HL20,HH20] = fourblocks(B20);
+[U20,S20,V20] = usvdivision(LH20);
+[u20,s20,v20] = usvdivision(HL20);
+if (wlength>0)
+    [U20(2,1),U20(3,1)] = embed(U20(2,1),U20(3,1),w(39));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u20(2,1),u20(3,1)] = embed(u20(2,1),u20(3,1),w(40));
+    wlength=wlength-1;
+end
+
+iLH20 = invsvd(U20,S20,V20);
+iHL20 = invsvd(u20,s20,v20);
+ib20=fourtoone(LL20,iLH20,iHL20,HH20);
+iB20=uint8(ib20);
+
+
+B21=bluechannel(81:100,1:20);
+[LL21,LH21,HL21,HH21] = fourblocks(B21);
+[U21,S21,V21] = usvdivision(LH21);
+[u21,s21,v21] = usvdivision(HL21);
+if (wlength>0)
+    [U21(2,1),U21(3,1)] = embed(U21(2,1),U21(3,1),w(41));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u21(2,1),u21(3,1)] = embed(u21(2,1),u21(3,1),w(42));
+    wlength=wlength-1;
+end
+
+iLH21 = invsvd(U21,S21,V21);
+iHL21 = invsvd(u21,s21,v21);
+ib21=fourtoone(LL21,iLH21,iHL21,HH21);
+iB21=uint8(ib21);
+
+
+B22=bluechannel(81:100,21:40);
+[LL22,LH22,HL22,HH22] = fourblocks(B22);
+[U22,S22,V22] = usvdivision(LH22);
+[u22,s22,v22] = usvdivision(HL22);
+if (wlength>0)
+    [U22(2,1),U22(3,1)] = embed(U22(2,1),U22(3,1),w(43));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u22(2,1),u22(3,1)] = embed(u22(2,1),u22(3,1),w(44));
+    wlength=wlength-1;
+end
+
+iLH22 = invsvd(U22,S22,V22);
+iHL22 = invsvd(u22,s22,v22);
+ib22=fourtoone(LL22,iLH22,iHL22,HH22);
+iB22=uint8(ib22);
+
+
+B23=bluechannel(81:100,41:60);
+[LL23,LH23,HL23,HH23] = fourblocks(B23);
+[U23,S23,V23] = usvdivision(LH23);
+[u23,s23,v23] = usvdivision(HL23);
+if (wlength>0)
+    [U23(2,1),U23(3,1)] = embed(U23(2,1),U23(3,1),w(45));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u23(2,1),u23(3,1)] = embed(u23(2,1),u23(3,1),w(46));
+    wlength=wlength-1;
+end
+
+iLH23 = invsvd(U23,S23,V23);
+iHL23 = invsvd(u23,s23,v23);
+ib23=fourtoone(LL23,iLH23,iHL23,HH23);
+iB23=uint8(ib23);
+
+
+B24=bluechannel(81:100,61:80);
+[LL24,LH24,HL24,HH24] = fourblocks(B24);
+[U24,S24,V24] = usvdivision(LH24);
+[u24,s24,v24] = usvdivision(HL24);
+if (wlength>0)
+    [U24(2,1),U24(3,1)] = embed(U24(2,1),U24(3,1),w(47));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u24(2,1),u24(3,1)] = embed(u24(2,1),u24(3,1),w(48));
+    wlength=wlength-1;
+end
+
+iLH24 = invsvd(U24,S24,V24);
+iHL24 = invsvd(u24,s24,v24);
+ib24=fourtoone(LL24,iLH24,iHL24,HH24);
+iB24=uint8(ib24);
+
+
+B25=bluechannel(81:100,81:100);
+[LL25,LH25,HL25,HH25] = fourblocks(B25);
+[U25,S25,V25] = usvdivision(LH25);
+[u25,s25,v25] = usvdivision(HL25);
+if (wlength>0)
+    [U25(2,1),U25(3,1)] = embed(U25(2,1),U25(3,1),w(49));
+    wlength=wlength-1;
+end
+
+if (wlength>0)
+    [u25(2,1),u25(3,1)] = embed(u25(2,1),u25(3,1),w(50));
+    wlength=wlength-1;
+end
+
+iLH25 = invsvd(U25,S25,V25);
+iHL25 = invsvd(u25,s25,v25);
+ib25=fourtoone(LL25,iLH25,iHL25,HH25);
+iB25=uint8(ib25);
+
+
+wblue = [iB1 iB2 iB3 iB4 iB5;iB6 iB7 iB8 iB9 iB10;iB11 iB12 iB13 iB14 iB15;iB16 iB17 iB18 iB19 iB20;iB21 iB22 iB23 iB24 iB25;];
+
+wimg = cat(3,redchannel,greenchannel,wblue);
+figure, imshow(wimg);
+title('watermarked image');
+
+Folder = 'C:\MATLABFOLDER';
+File   = 'wimg.bmp';
+imwrite(wimg, fullfile(Folder, File));
+
+peaksnr = psnr(img,wimg);
+fprintf('\n the peak-snr value is %0.4f',peaksnr);
+
+ssimval = ssim(img,wimg);
+fprintf('\nThe SSIM value is %0.4f.\n',ssimval);
+
+noise = imnoise(wimg,'gaussian');
+figure , imshow(noise);
+title('image after gausian attack');
+
+
+%dataextraction(lengthw);
+
+
+dataextraction.m
+
+function [  ] = dataextraction(  )
+wimg = imread('wimg.bmp');
+imag=wimg;
+figure,imshow(imag);
+title('recovered image');
+redchannel = wimg(:,:,1);
+greenchannel = wimg(:,:,2);
+bluechannel = wimg(:,:,3);
+
+
+datalength=40;
+iw=[];
+
+
+B1=bluechannel(1:20,1:20);
+[LL1,LH1,HL1,HH1] = fourblocks(B1);
+[U1,S1,V1] = usvdivision(LH1);
+[u1,s1,v1] = usvdivision(HL1);
+if datalength>0
+    iw = [iw,extract(U1(2,1),U1(3,1))];
+    datalength=datalength-1;
+end
+if datalength>0
+    iw = [iw,extract(u1(2,1),u1(3,1))];
+    datalength=datalength-1;
+end
+iLH1 = invsvd(U1,S1,V1);
+iHL1 = invsvd(u1,s1,v1);
+ib1=fourtoone(LL1,iLH1,iHL1,HH1);
+iB1=uint8(ib1);
+
+
+
+
+B2=bluechannel(1:20,21:40);
+[LL2,LH2,HL2,HH2] = fourblocks(B2);
+[U2,S2,V2] = usvdivision(LH2);
+[u2,s2,v2] = usvdivision(HL2);
+if datalength>0
+iw = [iw,extract(U2(2,1),U2(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u2(2,1),u2(3,1))];
+datalength=datalength-1;
+end
+iLH2 = invsvd(U2,S2,V2);
+iHL2 = invsvd(u2,s2,v2);
+ib2=fourtoone(LL2,iLH2,iHL2,HH2);
+iB2=uint8(ib2);
+
+
+
+B3=bluechannel(1:20,41:60);
+[LL3,LH3,HL3,HH3] = fourblocks(B3);
+[U3,S3,V3] = usvdivision(LH3);
+[u3,s3,v3] = usvdivision(HL3);
+if datalength>0
+iw = [iw,extract(U3(2,1),U3(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u3(2,1),u3(3,1))];
+datalength=datalength-1;
+end
+iLH3 = invsvd(U3,S3,V3);
+iHL3 = invsvd(u3,s3,v3);
+ib3=fourtoone(LL3,iLH3,iHL3,HH3);
+iB3=uint8(ib3);
+ 
+
+B4=bluechannel(1:20,61:80);
+[LL4,LH4,HL4,HH4] = fourblocks(B4);
+[U4,S4,V4] = usvdivision(LH4);
+[u4,s4,v4] = usvdivision(HL4);
+if datalength>0
+iw = [iw,extract(U4(2,1),U4(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u4(2,1),u4(3,1))];
+datalength=datalength-1;
+end
+iLH4 = invsvd(U4,S4,V4);
+iHL4 = invsvd(u4,s4,v4);
+ib4=fourtoone(LL4,iLH4,iHL4,HH4);
+iB4=uint8(ib4);
+
+B5=bluechannel(1:20,81:100);
+[LL5,LH5,HL5,HH5] = fourblocks(B5);
+[U5,S5,V5] = usvdivision(LH5);
+[u5,s5,v5] = usvdivision(HL5);
+if datalength>0
+iw = [iw,extract(U5(2,1),U5(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u5(2,1),u5(3,1))];
+datalength=datalength-1;
+end
+iLH5 = invsvd(U5,S5,V5);
+iHL5 = invsvd(u5,s5,v5);
+ib5=fourtoone(LL5,iLH5,iHL5,HH5);
+iB5=uint8(ib5);
+
+B6=bluechannel(21:40,1:20);
+[LL6,LH6,HL6,HH6] = fourblocks(B6);
+[U6,S6,V6] = usvdivision(LH6);
+[u6,s6,v6] = usvdivision(HL6);
+if datalength>0
+  iw = [iw,extract(U6(2,1),U6(3,1))];
+  datalength=datalength-1;
+end
+if datalength>0
+  iw = [iw,extract(u6(2,1),u6(3,1))];
+  datalength=datalength-1;
+end
+iLH6 = invsvd(U6,S6,V6);
+iHL6 = invsvd(u6,s6,v6);
+ib6=fourtoone(LL6,iLH6,iHL6,HH6);
+iB6=uint8(ib6);
+
+
+B7=bluechannel(21:40,21:40);
+[LL7,LH7,HL7,HH7] = fourblocks(B7);
+[U7,S7,V7] = usvdivision(LH7);
+[u7,s7,v7] = usvdivision(HL7);
+if datalength>0
+iw = [iw,extract(U7(2,1),U7(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u7(2,1),u7(3,1))];
+datalength=datalength-1;
+end
+iLH7 = invsvd(U7,S7,V7);
+iHL7 = invsvd(u7,s7,v7);
+ib7=fourtoone(LL7,iLH7,iHL7,HH7);
+iB7=uint8(ib7);
+
+
+B8=bluechannel(21:40,41:60);
+[LL8,LH8,HL8,HH8] = fourblocks(B8);
+[U8,S8,V8] = usvdivision(LH8);
+[u8,s8,v8] = usvdivision(HL8);
+if datalength>0
+iw = [iw,extract(U8(2,1),U8(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u8(2,1),u8(3,1))];
+datalength=datalength-1;
+end
+iLH8 = invsvd(U8,S8,V8);
+iHL8 = invsvd(u8,s8,v8);
+ib8=fourtoone(LL8,iLH8,iHL8,HH8);
+iB8=uint8(ib8);
+
+
+B9=bluechannel(21:40,61:80);
+[LL9,LH9,HL9,HH9] = fourblocks(B9);
+[U9,S9,V9] = usvdivision(LH9);
+[u9,s9,v9] = usvdivision(HL9);
+if datalength>0
+iw = [iw,extract(U9(2,1),U9(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u9(2,1),u9(3,1))];
+datalength=datalength-1;
+end
+iLH9 = invsvd(U9,S9,V9);
+iHL9 = invsvd(u9,s9,v9);
+ib9=fourtoone(LL9,iLH9,iHL9,HH9);
+iB9=uint8(ib9);
+
+
+B10=bluechannel(21:40,81:100);
+[LL10,LH10,HL10,HH10] = fourblocks(B10);
+[U10,S10,V10] = usvdivision(LH10);
+[u10,s10,v10] = usvdivision(HL10);
+if datalength>0
+iw = [iw,extract(U10(2,1),U10(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u10(2,1),u10(3,1))];
+datalength=datalength-1;
+end
+iLH10 = invsvd(U10,S10,V10);
+iHL10 = invsvd(u10,s10,v10);
+ib10=fourtoone(LL10,iLH10,iHL10,HH10);
+iB10=uint8(ib10);
+
+
+B11=bluechannel(41:60,1:20);
+[LL11,LH11,HL11,HH11] = fourblocks(B11);
+[U11,S11,V11] = usvdivision(LH11);
+[u11,s11,v11] = usvdivision(HL11);
+if datalength>0
+iw = [iw,extract(U11(2,1),U11(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u11(2,1),u11(3,1))];
+datalength=datalength-1;
+end
+iLH11 = invsvd(U11,S11,V11);
+iHL11 = invsvd(u11,s11,v11);
+ib11=fourtoone(LL11,iLH11,iHL11,HH11);
+iB11=uint8(ib11);
+
+B12=bluechannel(41:60,21:40);
+[LL12,LH12,HL12,HH12] = fourblocks(B12);
+[U12,S12,V12] = usvdivision(LH12);
+[u12,s12,v12] = usvdivision(HL12);
+if datalength>0
+iw = [iw,extract(U12(2,1),U12(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u12(2,1),u12(3,1))];
+datalength=datalength-1;
+end
+iLH12 = invsvd(U12,S12,V12);
+iHL12 = invsvd(u12,s12,v12);
+ib12=fourtoone(LL12,iLH12,iHL12,HH12);
+iB12=uint8(ib12);
+
+B13=bluechannel(41:60,41:60);
+[LL13,LH13,HL13,HH13] = fourblocks(B13);
+[U13,S13,V13] = usvdivision(LH13);
+[u13,s13,v13] = usvdivision(HL13);
+if datalength>0
+iw = [iw,extract(U13(2,1),U13(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u13(2,1),u13(3,1))];
+datalength=datalength-1;
+end
+iLH13 = invsvd(U13,S13,V13);
+iHL13 = invsvd(u13,s13,v13);
+ib13=fourtoone(LL13,iLH13,iHL13,HH13);
+iB13=uint8(ib13);
+
+
+B14=bluechannel(41:60,61:80);
+[LL14,LH14,HL14,HH14] = fourblocks(B14);
+[U14,S14,V14] = usvdivision(LH14);
+[u14,s14,v14] = usvdivision(HL14);
+if datalength>0
+iw = [iw,extract(U14(2,1),U14(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u14(2,1),u14(3,1))];
+datalength=datalength-1;
+end
+iLH14 = invsvd(U14,S14,V14);
+iHL14 = invsvd(u14,s14,v14);
+ib14=fourtoone(LL14,iLH14,iHL14,HH14);
+iB14=uint8(ib14);
+
+
+B15=bluechannel(41:60,81:100);
+[LL15,LH15,HL15,HH15] = fourblocks(B15);
+[U15,S15,V15] = usvdivision(LH15);
+[u15,s15,v15] = usvdivision(HL15);
+if datalength>0
+iw = [iw,extract(U15(2,1),U15(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u15(2,1),u15(3,1))];
+datalength=datalength-1;
+end
+iLH15 = invsvd(U15,S15,V15);
+iHL15 = invsvd(u15,s15,v15);
+ib15=fourtoone(LL15,iLH15,iHL15,HH15);
+iB15=uint8(ib15);
+
+
+B16=bluechannel(61:80,1:20);
+[LL16,LH16,HL16,HH16] = fourblocks(B16);
+[U16,S16,V16] = usvdivision(LH16);
+[u16,s16,v16] = usvdivision(HL16);
+if datalength>0
+iw = [iw,extract(U16(2,1),U16(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u16(2,1),u16(3,1))];
+datalength=datalength-1;
+end
+iLH16 = invsvd(U16,S16,V16);
+iHL16 = invsvd(u16,s16,v16);
+ib16=fourtoone(LL16,iLH16,iHL16,HH16);
+iB16=uint8(ib16);
+
+
+B17=bluechannel(61:80,21:40);
+[LL17,LH17,HL17,HH17] = fourblocks(B17);
+[U17,S17,V17] = usvdivision(LH17);
+[u17,s17,v17] = usvdivision(HL17);
+if datalength>0
+iw = [iw,extract(U17(2,1),U17(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u17(2,1),u17(3,1))];
+datalength=datalength-1;
+end
+iLH17 = invsvd(U17,S17,V17);
+iHL17 = invsvd(u17,s17,v17);
+ib17=fourtoone(LL17,iLH17,iHL17,HH17);
+iB17=uint8(ib17);
+
+
+B18=bluechannel(61:80,41:60);
+[LL18,LH18,HL18,HH18] = fourblocks(B18);
+[U18,S18,V18] = usvdivision(LH18);
+[u18,s18,v18] = usvdivision(HL18);
+if datalength>0
+iw = [iw,extract(U18(2,1),U18(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u18(2,1),u18(3,1))];
+datalength=datalength-1;
+end
+iLH18 = invsvd(U18,S18,V18);
+iHL18 = invsvd(u18,s18,v18);
+ib18=fourtoone(LL18,iLH18,iHL18,HH18);
+iB18=uint8(ib18);
+
+
+B19=bluechannel(61:80,61:80);
+[LL19,LH19,HL19,HH19] = fourblocks(B19);
+[U19,S19,V19] = usvdivision(LH19);
+[u19,s19,v19] = usvdivision(HL19);
+if datalength>0
+iw = [iw,extract(U19(2,1),U19(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u19(2,1),u19(3,1))];
+datalength=datalength-1;
+end
+iLH19 = invsvd(U19,S19,V19);
+iHL19 = invsvd(u19,s19,v19);
+ib19=fourtoone(LL19,iLH19,iHL19,HH19);
+iB19=uint8(ib19);
+
+
+B20=bluechannel(61:80,81:100);
+[LL20,LH20,HL20,HH20] = fourblocks(B20);
+[U20,S20,V20] = usvdivision(LH20);
+[u20,s20,v20] = usvdivision(HL20);
+if datalength>0
+iw = [iw,extract(U20(2,1),U20(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u20(2,1),u20(3,1))];
+datalength=datalength-1;
+end
+iLH20 = invsvd(U20,S20,V20);
+iHL20 = invsvd(u20,s20,v20);
+ib20=fourtoone(LL20,iLH20,iHL20,HH20);
+iB20=uint8(ib20);
+
+
+B21=bluechannel(81:100,1:20);
+[LL21,LH21,HL21,HH21] = fourblocks(B21);
+[U21,S21,V21] = usvdivision(LH21);
+[u21,s21,v21] = usvdivision(HL21);
+if datalength>0
+iw = [iw,extract(U21(2,1),U21(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u21(2,1),u21(3,1))];
+datalength=datalength-1;
+end
+iLH21 = invsvd(U21,S21,V21);
+iHL21 = invsvd(u21,s21,v21);
+ib21=fourtoone(LL21,iLH21,iHL21,HH21);
+iB21=uint8(ib21);
+
+
+B22=bluechannel(81:100,21:40);
+[LL22,LH22,HL22,HH22] = fourblocks(B22);
+[U22,S22,V22] = usvdivision(LH22);
+[u22,s22,v22] = usvdivision(HL22);
+if datalength>0
+iw = [iw,extract(U22(2,1),U22(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u22(2,1),u22(3,1))];
+datalength=datalength-1;
+end
+iLH22 = invsvd(U22,S22,V22);
+iHL22 = invsvd(u22,s22,v22);
+ib22=fourtoone(LL22,iLH22,iHL22,HH22);
+iB22=uint8(ib22);
+
+
+B23=bluechannel(81:100,41:60);
+[LL23,LH23,HL23,HH23] = fourblocks(B23);
+[U23,S23,V23] = usvdivision(LH23);
+[u23,s23,v23] = usvdivision(HL23);
+if datalength>0
+iw = [iw,extract(U23(2,1),U23(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u23(2,1),u23(3,1))];
+datalength=datalength-1;
+end
+iLH23 = invsvd(U23,S23,V23);
+iHL23 = invsvd(u23,s23,v23);
+ib23=fourtoone(LL23,iLH23,iHL23,HH23);
+iB23=uint8(ib23);
+
+
+B24=bluechannel(81:100,61:80);
+[LL24,LH24,HL24,HH24] = fourblocks(B24);
+[U24,S24,V24] = usvdivision(LH24);
+[u24,s24,v24] = usvdivision(HL24);
+if datalength>0
+iw = [iw,extract(U24(2,1),U24(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u24(2,1),u24(3,1))];
+datalength=datalength-1;
+end
+iLH24 = invsvd(U24,S24,V24);
+iHL24 = invsvd(u24,s24,v24);
+ib24=fourtoone(LL24,iLH24,iHL24,HH24);
+iB24=uint8(ib24);
+
+
+B25=bluechannel(81:100,81:100);
+[LL25,LH25,HL25,HH25] = fourblocks(B25);
+[U25,S25,V25] = usvdivision(LH25);
+[u25,s25,v25] = usvdivision(HL25);
+if datalength>0
+iw = [iw,extract(U25(2,1),U25(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u25(2,1),u25(3,1))];
+datalength=datalength-1;
+end
+iLH25 = invsvd(U25,S25,V25);
+iHL25 = invsvd(u25,s25,v25);
+ib25=fourtoone(LL25,iLH25,iHL25,HH25);
+iB25=uint8(ib25);
+
+
+wblue = [iB1 iB2 iB3 iB4 iB5;iB6 iB7 iB8 iB9 iB10;iB11 iB12 iB13 iB14 iB15;iB16 iB17 iB18 iB19 iB20;iB21 iB22 iB23 iB24 iB25;];
+
+oimg = cat(3,redchannel,greenchannel,wblue);
+
+%fid=fopen('iwatermark.str','w');
+%fprintf(fid,'%d',iw);
+%fid=fclose(fid);
+
+save('C:\MATLABFOLDER\iwatermark.mat','iw');
+
+secretmsg = getsecretmsg(iw);
+disp('the secret message is...');
+disp(secretmsg);
+
+
+end
+
+
+
+
+
+
+USVDIVISION.M 
+
+function [U,S,V] = usvdivision(x)
+[U,S,V] = svd(double(x));
+end
+
+
+
+
+FOURBLOCKS.m
+
+function [a,b,c,d] = fourblocks(B)
+im=double(B);
+lshaarInt = liftwave('haar','int2int');
+els = {'p',[-0.125 0.125],0};
+lsnewInt = addlift(lshaarInt,els);
+[a,b,c,d] = lwt2(im,lsnewInt);
+a=uint8(a);
+b=uint8(b);
+c=uint8(c);
+d=uint8(d);
+subplot(5,5,1);
+subplot(5,5,2);
+subplot(5,5,3);
+subplot(5,5,4);
+end
+
+
+
+EMBED.m
+
+function [ x, y] = embed( x, y,w )
+avg = (x+y)/2;
+T = 1.5555;
+if w==1 
+    if((y-x)<T)
+        x = sign(x*(avg-T/2));
+        y = sign(y*(avg+T/2));
+        
+    end
+elseif w==0
+    if((x-y)<T)
+        x = sign(x*(avg+T/2));
+        y = sign(y*(avg-T/2));
+    end
+end
+end
+
+
+
+
+
+INVSVD.m
+
+function [ p ] = invsvd(x,y,z)
+p = x*y*z';
+end
+
+
+
+
+FOURTOONE.m
+
+function [ P ] = fourtoone(a,b,c,d)
+lshaarInt = liftwave('haar','int2int');
+els = {'p',[-0.125 0.125],0};
+lsnewInt = addlift(lshaarInt,els);
+a=double(a);b=double(b);c=double(c);d=double(d);
+    p= (ilwt2(a,b,c,d,lsnewInt));
+    P=uint8(p);
+end
+
+
+
+
+
+EXTRACT.m
+
+
+function [ ew ] = extract( x,y )
+
+  if abs(x)>abs(y) 
+     ew=0;
+  elseif abs(x)<=abs(y)
+     ew=1;
+  end
+end
+
+
+
+
+PUTWATERMARKDATA.m
+
+
+
+function [ ebinarystring ] = putwatermarkdata( )
+clc;
+s=input('Enter the message to be hidden in the image: ','s');
+binarystring = dec2bin(s,8)';
+binarystring = binarystring(:)'-'0'
+len=length(binarystring);
+for i = 1:len
+    if binarystring(i)==0
+        ebinarystring(i)=1;
+    else
+        ebinarystring(i)=0;
+    end
+end
+disp('The data to be embedded is...');
+disp(ebinarystring);
+end
+
+
+
+
+getsecretmessage.m
+
+
+function [ c ] = getsecretmsg( changedbinary )
+len1=length(changedbinary);
+for i = 1:len1
+    if changedbinary(i)==0
+       changedbinary(i)=1;
+    else
+       changedbinary(i)=0;
+    end
+end
+binstr = char(changedbinary+'0');
+binvectorstr = reshape(binstr,8,[]).';
+c = char(bin2dec(binvectorstr).');
+end
+
+
+
+
+NC.m
+
+
+clc;
+ w=load('watermark.mat');
+embededdata=w;
+disp(w);
+iw=load('iwatermark.mat');
+extracteddata=iw;
+disp(iw);
+b=0;
+q=0;
+s=0;
+for i=1:40
+   a=embededdata.w(i)*extracteddata.iw(i);
+   b=b+a;
+end
+for i=1:40
+   p=embededdata.w(i)*embededdata.w(i);
+   q=q+p;
+end
+x=sqrt(q);
+for i=1:40
+   r=extracteddata.iw(i)*extracteddata.iw(i);
+   s=s+r;
+end
+y=sqrt(s);
+denominator=x*y;
+numerator=b;
+ncvalue=numerator/denominator;
+disp('The NC value is......');
+disp(ncvalue);
+
+
+    
+guassian.m
+
+
+
+img = imread('wimg.bmp');
+noise = imnoise(img,'gaussian');
+image = noise;
+figure , imshow(noise);
+title('image after gausian attack');
+
+redchannel = image(:,:,1);
+greenchannel = image(:,:,2);
+bluechannel = image(:,:,3);
+
+datalength=40;
+iw=[];
+
+
+B1=bluechannel(1:20,1:20);
+[LL1,LH1,HL1,HH1] = fourblocks(B1);
+[U1,S1,V1] = usvdivision(LH1);
+[u1,s1,v1] = usvdivision(HL1);
+if datalength>0
+    iw = [iw,extract(U1(2,1),U1(3,1))];
+    datalength=datalength-1;
+end
+if datalength>0
+    iw = [iw,extract(u1(2,1),u1(3,1))];
+    datalength=datalength-1;
+end
+iLH1 = invsvd(U1,S1,V1);
+iHL1 = invsvd(u1,s1,v1);
+ib1=fourtoone(LL1,iLH1,iHL1,HH1);
+iB1=uint8(ib1);
+
+
+
+
+B2=bluechannel(1:20,21:40);
+[LL2,LH2,HL2,HH2] = fourblocks(B2);
+[U2,S2,V2] = usvdivision(LH2);
+[u2,s2,v2] = usvdivision(HL2);
+if datalength>0
+iw = [iw,extract(U2(2,1),U2(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u2(2,1),u2(3,1))];
+datalength=datalength-1;
+end
+iLH2 = invsvd(U2,S2,V2);
+iHL2 = invsvd(u2,s2,v2);
+ib2=fourtoone(LL2,iLH2,iHL2,HH2);
+iB2=uint8(ib2);
+
+
+
+B3=bluechannel(1:20,41:60);
+[LL3,LH3,HL3,HH3] = fourblocks(B3);
+[U3,S3,V3] = usvdivision(LH3);
+[u3,s3,v3] = usvdivision(HL3);
+if datalength>0
+iw = [iw,extract(U3(2,1),U3(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u3(2,1),u3(3,1))];
+datalength=datalength-1;
+end
+iLH3 = invsvd(U3,S3,V3);
+iHL3 = invsvd(u3,s3,v3);
+ib3=fourtoone(LL3,iLH3,iHL3,HH3);
+iB3=uint8(ib3);
+ 
+
+B4=bluechannel(1:20,61:80);
+[LL4,LH4,HL4,HH4] = fourblocks(B4);
+[U4,S4,V4] = usvdivision(LH4);
+[u4,s4,v4] = usvdivision(HL4);
+if datalength>0
+iw = [iw,extract(U4(2,1),U4(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u4(2,1),u4(3,1))];
+datalength=datalength-1;
+end
+iLH4 = invsvd(U4,S4,V4);
+iHL4 = invsvd(u4,s4,v4);
+ib4=fourtoone(LL4,iLH4,iHL4,HH4);
+iB4=uint8(ib4);
+
+B5=bluechannel(1:20,81:100);
+[LL5,LH5,HL5,HH5] = fourblocks(B5);
+[U5,S5,V5] = usvdivision(LH5);
+[u5,s5,v5] = usvdivision(HL5);
+if datalength>0
+iw = [iw,extract(U5(2,1),U5(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u5(2,1),u5(3,1))];
+datalength=datalength-1;
+end
+iLH5 = invsvd(U5,S5,V5);
+iHL5 = invsvd(u5,s5,v5);
+ib5=fourtoone(LL5,iLH5,iHL5,HH5);
+iB5=uint8(ib5);
+
+B6=bluechannel(21:40,1:20);
+[LL6,LH6,HL6,HH6] = fourblocks(B6);
+[U6,S6,V6] = usvdivision(LH6);
+[u6,s6,v6] = usvdivision(HL6);
+if datalength>0
+  iw = [iw,extract(U6(2,1),U6(3,1))];
+  datalength=datalength-1;
+end
+if datalength>0
+  iw = [iw,extract(u6(2,1),u6(3,1))];
+  datalength=datalength-1;
+end
+iLH6 = invsvd(U6,S6,V6);
+iHL6 = invsvd(u6,s6,v6);
+ib6=fourtoone(LL6,iLH6,iHL6,HH6);
+iB6=uint8(ib6);
+
+
+B7=bluechannel(21:40,21:40);
+[LL7,LH7,HL7,HH7] = fourblocks(B7);
+[U7,S7,V7] = usvdivision(LH7);
+[u7,s7,v7] = usvdivision(HL7);
+if datalength>0
+iw = [iw,extract(U7(2,1),U7(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u7(2,1),u7(3,1))];
+datalength=datalength-1;
+end
+iLH7 = invsvd(U7,S7,V7);
+iHL7 = invsvd(u7,s7,v7);
+ib7=fourtoone(LL7,iLH7,iHL7,HH7);
+iB7=uint8(ib7);
+
+
+B8=bluechannel(21:40,41:60);
+[LL8,LH8,HL8,HH8] = fourblocks(B8);
+[U8,S8,V8] = usvdivision(LH8);
+[u8,s8,v8] = usvdivision(HL8);
+if datalength>0
+iw = [iw,extract(U8(2,1),U8(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u8(2,1),u8(3,1))];
+datalength=datalength-1;
+end
+iLH8 = invsvd(U8,S8,V8);
+iHL8 = invsvd(u8,s8,v8);
+ib8=fourtoone(LL8,iLH8,iHL8,HH8);
+iB8=uint8(ib8);
+
+
+B9=bluechannel(21:40,61:80);
+[LL9,LH9,HL9,HH9] = fourblocks(B9);
+[U9,S9,V9] = usvdivision(LH9);
+[u9,s9,v9] = usvdivision(HL9);
+if datalength>0
+iw = [iw,extract(U9(2,1),U9(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u9(2,1),u9(3,1))];
+datalength=datalength-1;
+end
+iLH9 = invsvd(U9,S9,V9);
+iHL9 = invsvd(u9,s9,v9);
+ib9=fourtoone(LL9,iLH9,iHL9,HH9);
+iB9=uint8(ib9);
+
+
+B10=bluechannel(21:40,81:100);
+[LL10,LH10,HL10,HH10] = fourblocks(B10);
+[U10,S10,V10] = usvdivision(LH10);
+[u10,s10,v10] = usvdivision(HL10);
+if datalength>0
+iw = [iw,extract(U10(2,1),U10(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u10(2,1),u10(3,1))];
+datalength=datalength-1;
+end
+iLH10 = invsvd(U10,S10,V10);
+iHL10 = invsvd(u10,s10,v10);
+ib10=fourtoone(LL10,iLH10,iHL10,HH10);
+iB10=uint8(ib10);
+
+
+B11=bluechannel(41:60,1:20);
+[LL11,LH11,HL11,HH11] = fourblocks(B11);
+[U11,S11,V11] = usvdivision(LH11);
+[u11,s11,v11] = usvdivision(HL11);
+if datalength>0
+iw = [iw,extract(U11(2,1),U11(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u11(2,1),u11(3,1))];
+datalength=datalength-1;
+end
+iLH11 = invsvd(U11,S11,V11);
+iHL11 = invsvd(u11,s11,v11);
+ib11=fourtoone(LL11,iLH11,iHL11,HH11);
+iB11=uint8(ib11);
+
+B12=bluechannel(41:60,21:40);
+[LL12,LH12,HL12,HH12] = fourblocks(B12);
+[U12,S12,V12] = usvdivision(LH12);
+[u12,s12,v12] = usvdivision(HL12);
+if datalength>0
+iw = [iw,extract(U12(2,1),U12(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u12(2,1),u12(3,1))];
+datalength=datalength-1;
+end
+iLH12 = invsvd(U12,S12,V12);
+iHL12 = invsvd(u12,s12,v12);
+ib12=fourtoone(LL12,iLH12,iHL12,HH12);
+iB12=uint8(ib12);
+
+B13=bluechannel(41:60,41:60);
+[LL13,LH13,HL13,HH13] = fourblocks(B13);
+[U13,S13,V13] = usvdivision(LH13);
+[u13,s13,v13] = usvdivision(HL13);
+if datalength>0
+iw = [iw,extract(U13(2,1),U13(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u13(2,1),u13(3,1))];
+datalength=datalength-1;
+end
+iLH13 = invsvd(U13,S13,V13);
+iHL13 = invsvd(u13,s13,v13);
+ib13=fourtoone(LL13,iLH13,iHL13,HH13);
+iB13=uint8(ib13);
+
+
+B14=bluechannel(41:60,61:80);
+[LL14,LH14,HL14,HH14] = fourblocks(B14);
+[U14,S14,V14] = usvdivision(LH14);
+[u14,s14,v14] = usvdivision(HL14);
+if datalength>0
+iw = [iw,extract(U14(2,1),U14(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u14(2,1),u14(3,1))];
+datalength=datalength-1;
+end
+iLH14 = invsvd(U14,S14,V14);
+iHL14 = invsvd(u14,s14,v14);
+ib14=fourtoone(LL14,iLH14,iHL14,HH14);
+iB14=uint8(ib14);
+
+
+B15=bluechannel(41:60,81:100);
+[LL15,LH15,HL15,HH15] = fourblocks(B15);
+[U15,S15,V15] = usvdivision(LH15);
+[u15,s15,v15] = usvdivision(HL15);
+if datalength>0
+iw = [iw,extract(U15(2,1),U15(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u15(2,1),u15(3,1))];
+datalength=datalength-1;
+end
+iLH15 = invsvd(U15,S15,V15);
+iHL15 = invsvd(u15,s15,v15);
+ib15=fourtoone(LL15,iLH15,iHL15,HH15);
+iB15=uint8(ib15);
+
+
+B16=bluechannel(61:80,1:20);
+[LL16,LH16,HL16,HH16] = fourblocks(B16);
+[U16,S16,V16] = usvdivision(LH16);
+[u16,s16,v16] = usvdivision(HL16);
+if datalength>0
+iw = [iw,extract(U16(2,1),U16(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u16(2,1),u16(3,1))];
+datalength=datalength-1;
+end
+iLH16 = invsvd(U16,S16,V16);
+iHL16 = invsvd(u16,s16,v16);
+ib16=fourtoone(LL16,iLH16,iHL16,HH16);
+iB16=uint8(ib16);
+
+
+B17=bluechannel(61:80,21:40);
+[LL17,LH17,HL17,HH17] = fourblocks(B17);
+[U17,S17,V17] = usvdivision(LH17);
+[u17,s17,v17] = usvdivision(HL17);
+if datalength>0
+iw = [iw,extract(U17(2,1),U17(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u17(2,1),u17(3,1))];
+datalength=datalength-1;
+end
+iLH17 = invsvd(U17,S17,V17);
+iHL17 = invsvd(u17,s17,v17);
+ib17=fourtoone(LL17,iLH17,iHL17,HH17);
+iB17=uint8(ib17);
+
+
+B18=bluechannel(61:80,41:60);
+[LL18,LH18,HL18,HH18] = fourblocks(B18);
+[U18,S18,V18] = usvdivision(LH18);
+[u18,s18,v18] = usvdivision(HL18);
+if datalength>0
+iw = [iw,extract(U18(2,1),U18(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u18(2,1),u18(3,1))];
+datalength=datalength-1;
+end
+iLH18 = invsvd(U18,S18,V18);
+iHL18 = invsvd(u18,s18,v18);
+ib18=fourtoone(LL18,iLH18,iHL18,HH18);
+iB18=uint8(ib18);
+
+
+B19=bluechannel(61:80,61:80);
+[LL19,LH19,HL19,HH19] = fourblocks(B19);
+[U19,S19,V19] = usvdivision(LH19);
+[u19,s19,v19] = usvdivision(HL19);
+if datalength>0
+iw = [iw,extract(U19(2,1),U19(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u19(2,1),u19(3,1))];
+datalength=datalength-1;
+end
+iLH19 = invsvd(U19,S19,V19);
+iHL19 = invsvd(u19,s19,v19);
+ib19=fourtoone(LL19,iLH19,iHL19,HH19);
+iB19=uint8(ib19);
+
+
+B20=bluechannel(61:80,81:100);
+[LL20,LH20,HL20,HH20] = fourblocks(B20);
+[U20,S20,V20] = usvdivision(LH20);
+[u20,s20,v20] = usvdivision(HL20);
+if datalength>0
+iw = [iw,extract(U20(2,1),U20(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u20(2,1),u20(3,1))];
+datalength=datalength-1;
+end
+iLH20 = invsvd(U20,S20,V20);
+iHL20 = invsvd(u20,s20,v20);
+ib20=fourtoone(LL20,iLH20,iHL20,HH20);
+iB20=uint8(ib20);
+
+
+B21=bluechannel(81:100,1:20);
+[LL21,LH21,HL21,HH21] = fourblocks(B21);
+[U21,S21,V21] = usvdivision(LH21);
+[u21,s21,v21] = usvdivision(HL21);
+if datalength>0
+iw = [iw,extract(U21(2,1),U21(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u21(2,1),u21(3,1))];
+datalength=datalength-1;
+end
+iLH21 = invsvd(U21,S21,V21);
+iHL21 = invsvd(u21,s21,v21);
+ib21=fourtoone(LL21,iLH21,iHL21,HH21);
+iB21=uint8(ib21);
+
+
+B22=bluechannel(81:100,21:40);
+[LL22,LH22,HL22,HH22] = fourblocks(B22);
+[U22,S22,V22] = usvdivision(LH22);
+[u22,s22,v22] = usvdivision(HL22);
+if datalength>0
+iw = [iw,extract(U22(2,1),U22(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u22(2,1),u22(3,1))];
+datalength=datalength-1;
+end
+iLH22 = invsvd(U22,S22,V22);
+iHL22 = invsvd(u22,s22,v22);
+ib22=fourtoone(LL22,iLH22,iHL22,HH22);
+iB22=uint8(ib22);
+
+
+B23=bluechannel(81:100,41:60);
+[LL23,LH23,HL23,HH23] = fourblocks(B23);
+[U23,S23,V23] = usvdivision(LH23);
+[u23,s23,v23] = usvdivision(HL23);
+if datalength>0
+iw = [iw,extract(U23(2,1),U23(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u23(2,1),u23(3,1))];
+datalength=datalength-1;
+end
+iLH23 = invsvd(U23,S23,V23);
+iHL23 = invsvd(u23,s23,v23);
+ib23=fourtoone(LL23,iLH23,iHL23,HH23);
+iB23=uint8(ib23);
+
+
+B24=bluechannel(81:100,61:80);
+[LL24,LH24,HL24,HH24] = fourblocks(B24);
+[U24,S24,V24] = usvdivision(LH24);
+[u24,s24,v24] = usvdivision(HL24);
+if datalength>0
+iw = [iw,extract(U24(2,1),U24(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u24(2,1),u24(3,1))];
+datalength=datalength-1;
+end
+iLH24 = invsvd(U24,S24,V24);
+iHL24 = invsvd(u24,s24,v24);
+ib24=fourtoone(LL24,iLH24,iHL24,HH24);
+iB24=uint8(ib24);
+
+
+B25=bluechannel(81:100,81:100);
+[LL25,LH25,HL25,HH25] = fourblocks(B25);
+[U25,S25,V25] = usvdivision(LH25);
+[u25,s25,v25] = usvdivision(HL25);
+if datalength>0
+iw = [iw,extract(U25(2,1),U25(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u25(2,1),u25(3,1))];
+datalength=datalength-1;
+end
+iLH25 = invsvd(U25,S25,V25);
+iHL25 = invsvd(u25,s25,v25);
+ib25=fourtoone(LL25,iLH25,iHL25,HH25);
+iB25=uint8(ib25);
+
+
+wblue = [iB1 iB2 iB3 iB4 iB5;iB6 iB7 iB8 iB9 iB10;iB11 iB12 iB13 iB14 iB15;iB16 iB17 iB18 iB19 iB20;iB21 iB22 iB23 iB24 iB25;];
+
+oimg = cat(3,redchannel,greenchannel,wblue);
+
+secretmsg = getsecretmsg(iw);
+disp('the secret message is...');
+disp(secretmsg);
+
+
+
+saltandpepperattack.m
+
+
+
+I = imread('wimg.bmp');
+J = imnoise(I,'salt & pepper',0.02);
+image=J; 
+figure, imshow(J)
+title('image after salt and pepper attack');
+
+redchannel = image(:,:,1);
+greenchannel = image(:,:,2);
+bluechannel = image(:,:,3);
+
+datalength=40;
+iw=[];
+
+
+B1=bluechannel(1:20,1:20);
+[LL1,LH1,HL1,HH1] = fourblocks(B1);
+[U1,S1,V1] = usvdivision(LH1);
+[u1,s1,v1] = usvdivision(HL1);
+if datalength>0
+    iw = [iw,extract(U1(2,1),U1(3,1))];
+    datalength=datalength-1;
+end
+if datalength>0
+    iw = [iw,extract(u1(2,1),u1(3,1))];
+    datalength=datalength-1;
+end
+iLH1 = invsvd(U1,S1,V1);
+iHL1 = invsvd(u1,s1,v1);
+ib1=fourtoone(LL1,iLH1,iHL1,HH1);
+iB1=uint8(ib1);
+
+
+
+
+B2=bluechannel(1:20,21:40);
+[LL2,LH2,HL2,HH2] = fourblocks(B2);
+[U2,S2,V2] = usvdivision(LH2);
+[u2,s2,v2] = usvdivision(HL2);
+if datalength>0
+iw = [iw,extract(U2(2,1),U2(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u2(2,1),u2(3,1))];
+datalength=datalength-1;
+end
+iLH2 = invsvd(U2,S2,V2);
+iHL2 = invsvd(u2,s2,v2);
+ib2=fourtoone(LL2,iLH2,iHL2,HH2);
+iB2=uint8(ib2);
+
+
+
+B3=bluechannel(1:20,41:60);
+[LL3,LH3,HL3,HH3] = fourblocks(B3);
+[U3,S3,V3] = usvdivision(LH3);
+[u3,s3,v3] = usvdivision(HL3);
+if datalength>0
+iw = [iw,extract(U3(2,1),U3(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u3(2,1),u3(3,1))];
+datalength=datalength-1;
+end
+iLH3 = invsvd(U3,S3,V3);
+iHL3 = invsvd(u3,s3,v3);
+ib3=fourtoone(LL3,iLH3,iHL3,HH3);
+iB3=uint8(ib3);
+ 
+
+B4=bluechannel(1:20,61:80);
+[LL4,LH4,HL4,HH4] = fourblocks(B4);
+[U4,S4,V4] = usvdivision(LH4);
+[u4,s4,v4] = usvdivision(HL4);
+if datalength>0
+iw = [iw,extract(U4(2,1),U4(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u4(2,1),u4(3,1))];
+datalength=datalength-1;
+end
+iLH4 = invsvd(U4,S4,V4);
+iHL4 = invsvd(u4,s4,v4);
+ib4=fourtoone(LL4,iLH4,iHL4,HH4);
+iB4=uint8(ib4);
+
+B5=bluechannel(1:20,81:100);
+[LL5,LH5,HL5,HH5] = fourblocks(B5);
+[U5,S5,V5] = usvdivision(LH5);
+[u5,s5,v5] = usvdivision(HL5);
+if datalength>0
+iw = [iw,extract(U5(2,1),U5(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u5(2,1),u5(3,1))];
+datalength=datalength-1;
+end
+iLH5 = invsvd(U5,S5,V5);
+iHL5 = invsvd(u5,s5,v5);
+ib5=fourtoone(LL5,iLH5,iHL5,HH5);
+iB5=uint8(ib5);
+
+B6=bluechannel(21:40,1:20);
+[LL6,LH6,HL6,HH6] = fourblocks(B6);
+[U6,S6,V6] = usvdivision(LH6);
+[u6,s6,v6] = usvdivision(HL6);
+if datalength>0
+  iw = [iw,extract(U6(2,1),U6(3,1))];
+  datalength=datalength-1;
+end
+if datalength>0
+  iw = [iw,extract(u6(2,1),u6(3,1))];
+  datalength=datalength-1;
+end
+iLH6 = invsvd(U6,S6,V6);
+iHL6 = invsvd(u6,s6,v6);
+ib6=fourtoone(LL6,iLH6,iHL6,HH6);
+iB6=uint8(ib6);
+
+
+B7=bluechannel(21:40,21:40);
+[LL7,LH7,HL7,HH7] = fourblocks(B7);
+[U7,S7,V7] = usvdivision(LH7);
+[u7,s7,v7] = usvdivision(HL7);
+if datalength>0
+iw = [iw,extract(U7(2,1),U7(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u7(2,1),u7(3,1))];
+datalength=datalength-1;
+end
+iLH7 = invsvd(U7,S7,V7);
+iHL7 = invsvd(u7,s7,v7);
+ib7=fourtoone(LL7,iLH7,iHL7,HH7);
+iB7=uint8(ib7);
+
+
+B8=bluechannel(21:40,41:60);
+[LL8,LH8,HL8,HH8] = fourblocks(B8);
+[U8,S8,V8] = usvdivision(LH8);
+[u8,s8,v8] = usvdivision(HL8);
+if datalength>0
+iw = [iw,extract(U8(2,1),U8(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u8(2,1),u8(3,1))];
+datalength=datalength-1;
+end
+iLH8 = invsvd(U8,S8,V8);
+iHL8 = invsvd(u8,s8,v8);
+ib8=fourtoone(LL8,iLH8,iHL8,HH8);
+iB8=uint8(ib8);
+
+
+B9=bluechannel(21:40,61:80);
+[LL9,LH9,HL9,HH9] = fourblocks(B9);
+[U9,S9,V9] = usvdivision(LH9);
+[u9,s9,v9] = usvdivision(HL9);
+if datalength>0
+iw = [iw,extract(U9(2,1),U9(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u9(2,1),u9(3,1))];
+datalength=datalength-1;
+end
+iLH9 = invsvd(U9,S9,V9);
+iHL9 = invsvd(u9,s9,v9);
+ib9=fourtoone(LL9,iLH9,iHL9,HH9);
+iB9=uint8(ib9);
+
+
+B10=bluechannel(21:40,81:100);
+[LL10,LH10,HL10,HH10] = fourblocks(B10);
+[U10,S10,V10] = usvdivision(LH10);
+[u10,s10,v10] = usvdivision(HL10);
+if datalength>0
+iw = [iw,extract(U10(2,1),U10(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u10(2,1),u10(3,1))];
+datalength=datalength-1;
+end
+iLH10 = invsvd(U10,S10,V10);
+iHL10 = invsvd(u10,s10,v10);
+ib10=fourtoone(LL10,iLH10,iHL10,HH10);
+iB10=uint8(ib10);
+
+
+B11=bluechannel(41:60,1:20);
+[LL11,LH11,HL11,HH11] = fourblocks(B11);
+[U11,S11,V11] = usvdivision(LH11);
+[u11,s11,v11] = usvdivision(HL11);
+if datalength>0
+iw = [iw,extract(U11(2,1),U11(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u11(2,1),u11(3,1))];
+datalength=datalength-1;
+end
+iLH11 = invsvd(U11,S11,V11);
+iHL11 = invsvd(u11,s11,v11);
+ib11=fourtoone(LL11,iLH11,iHL11,HH11);
+iB11=uint8(ib11);
+
+B12=bluechannel(41:60,21:40);
+[LL12,LH12,HL12,HH12] = fourblocks(B12);
+[U12,S12,V12] = usvdivision(LH12);
+[u12,s12,v12] = usvdivision(HL12);
+if datalength>0
+iw = [iw,extract(U12(2,1),U12(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u12(2,1),u12(3,1))];
+datalength=datalength-1;
+end
+iLH12 = invsvd(U12,S12,V12);
+iHL12 = invsvd(u12,s12,v12);
+ib12=fourtoone(LL12,iLH12,iHL12,HH12);
+iB12=uint8(ib12);
+
+B13=bluechannel(41:60,41:60);
+[LL13,LH13,HL13,HH13] = fourblocks(B13);
+[U13,S13,V13] = usvdivision(LH13);
+[u13,s13,v13] = usvdivision(HL13);
+if datalength>0
+iw = [iw,extract(U13(2,1),U13(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u13(2,1),u13(3,1))];
+datalength=datalength-1;
+end
+iLH13 = invsvd(U13,S13,V13);
+iHL13 = invsvd(u13,s13,v13);
+ib13=fourtoone(LL13,iLH13,iHL13,HH13);
+iB13=uint8(ib13);
+
+
+B14=bluechannel(41:60,61:80);
+[LL14,LH14,HL14,HH14] = fourblocks(B14);
+[U14,S14,V14] = usvdivision(LH14);
+[u14,s14,v14] = usvdivision(HL14);
+if datalength>0
+iw = [iw,extract(U14(2,1),U14(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u14(2,1),u14(3,1))];
+datalength=datalength-1;
+end
+iLH14 = invsvd(U14,S14,V14);
+iHL14 = invsvd(u14,s14,v14);
+ib14=fourtoone(LL14,iLH14,iHL14,HH14);
+iB14=uint8(ib14);
+
+
+B15=bluechannel(41:60,81:100);
+[LL15,LH15,HL15,HH15] = fourblocks(B15);
+[U15,S15,V15] = usvdivision(LH15);
+[u15,s15,v15] = usvdivision(HL15);
+if datalength>0
+iw = [iw,extract(U15(2,1),U15(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u15(2,1),u15(3,1))];
+datalength=datalength-1;
+end
+iLH15 = invsvd(U15,S15,V15);
+iHL15 = invsvd(u15,s15,v15);
+ib15=fourtoone(LL15,iLH15,iHL15,HH15);
+iB15=uint8(ib15);
+
+
+B16=bluechannel(61:80,1:20);
+[LL16,LH16,HL16,HH16] = fourblocks(B16);
+[U16,S16,V16] = usvdivision(LH16);
+[u16,s16,v16] = usvdivision(HL16);
+if datalength>0
+iw = [iw,extract(U16(2,1),U16(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u16(2,1),u16(3,1))];
+datalength=datalength-1;
+end
+iLH16 = invsvd(U16,S16,V16);
+iHL16 = invsvd(u16,s16,v16);
+ib16=fourtoone(LL16,iLH16,iHL16,HH16);
+iB16=uint8(ib16);
+
+
+B17=bluechannel(61:80,21:40);
+[LL17,LH17,HL17,HH17] = fourblocks(B17);
+[U17,S17,V17] = usvdivision(LH17);
+[u17,s17,v17] = usvdivision(HL17);
+if datalength>0
+iw = [iw,extract(U17(2,1),U17(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u17(2,1),u17(3,1))];
+datalength=datalength-1;
+end
+iLH17 = invsvd(U17,S17,V17);
+iHL17 = invsvd(u17,s17,v17);
+ib17=fourtoone(LL17,iLH17,iHL17,HH17);
+iB17=uint8(ib17);
+
+
+B18=bluechannel(61:80,41:60);
+[LL18,LH18,HL18,HH18] = fourblocks(B18);
+[U18,S18,V18] = usvdivision(LH18);
+[u18,s18,v18] = usvdivision(HL18);
+if datalength>0
+iw = [iw,extract(U18(2,1),U18(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u18(2,1),u18(3,1))];
+datalength=datalength-1;
+end
+iLH18 = invsvd(U18,S18,V18);
+iHL18 = invsvd(u18,s18,v18);
+ib18=fourtoone(LL18,iLH18,iHL18,HH18);
+iB18=uint8(ib18);
+
+
+B19=bluechannel(61:80,61:80);
+[LL19,LH19,HL19,HH19] = fourblocks(B19);
+[U19,S19,V19] = usvdivision(LH19);
+[u19,s19,v19] = usvdivision(HL19);
+if datalength>0
+iw = [iw,extract(U19(2,1),U19(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u19(2,1),u19(3,1))];
+datalength=datalength-1;
+end
+iLH19 = invsvd(U19,S19,V19);
+iHL19 = invsvd(u19,s19,v19);
+ib19=fourtoone(LL19,iLH19,iHL19,HH19);
+iB19=uint8(ib19);
+
+
+B20=bluechannel(61:80,81:100);
+[LL20,LH20,HL20,HH20] = fourblocks(B20);
+[U20,S20,V20] = usvdivision(LH20);
+[u20,s20,v20] = usvdivision(HL20);
+if datalength>0
+iw = [iw,extract(U20(2,1),U20(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u20(2,1),u20(3,1))];
+datalength=datalength-1;
+end
+iLH20 = invsvd(U20,S20,V20);
+iHL20 = invsvd(u20,s20,v20);
+ib20=fourtoone(LL20,iLH20,iHL20,HH20);
+iB20=uint8(ib20);
+
+
+B21=bluechannel(81:100,1:20);
+[LL21,LH21,HL21,HH21] = fourblocks(B21);
+[U21,S21,V21] = usvdivision(LH21);
+[u21,s21,v21] = usvdivision(HL21);
+if datalength>0
+iw = [iw,extract(U21(2,1),U21(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u21(2,1),u21(3,1))];
+datalength=datalength-1;
+end
+iLH21 = invsvd(U21,S21,V21);
+iHL21 = invsvd(u21,s21,v21);
+ib21=fourtoone(LL21,iLH21,iHL21,HH21);
+iB21=uint8(ib21);
+
+
+B22=bluechannel(81:100,21:40);
+[LL22,LH22,HL22,HH22] = fourblocks(B22);
+[U22,S22,V22] = usvdivision(LH22);
+[u22,s22,v22] = usvdivision(HL22);
+if datalength>0
+iw = [iw,extract(U22(2,1),U22(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u22(2,1),u22(3,1))];
+datalength=datalength-1;
+end
+iLH22 = invsvd(U22,S22,V22);
+iHL22 = invsvd(u22,s22,v22);
+ib22=fourtoone(LL22,iLH22,iHL22,HH22);
+iB22=uint8(ib22);
+
+
+B23=bluechannel(81:100,41:60);
+[LL23,LH23,HL23,HH23] = fourblocks(B23);
+[U23,S23,V23] = usvdivision(LH23);
+[u23,s23,v23] = usvdivision(HL23);
+if datalength>0
+iw = [iw,extract(U23(2,1),U23(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u23(2,1),u23(3,1))];
+datalength=datalength-1;
+end
+iLH23 = invsvd(U23,S23,V23);
+iHL23 = invsvd(u23,s23,v23);
+ib23=fourtoone(LL23,iLH23,iHL23,HH23);
+iB23=uint8(ib23);
+
+
+B24=bluechannel(81:100,61:80);
+[LL24,LH24,HL24,HH24] = fourblocks(B24);
+[U24,S24,V24] = usvdivision(LH24);
+[u24,s24,v24] = usvdivision(HL24);
+if datalength>0
+iw = [iw,extract(U24(2,1),U24(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u24(2,1),u24(3,1))];
+datalength=datalength-1;
+end
+iLH24 = invsvd(U24,S24,V24);
+iHL24 = invsvd(u24,s24,v24);
+ib24=fourtoone(LL24,iLH24,iHL24,HH24);
+iB24=uint8(ib24);
+
+
+B25=bluechannel(81:100,81:100);
+[LL25,LH25,HL25,HH25] = fourblocks(B25);
+[U25,S25,V25] = usvdivision(LH25);
+[u25,s25,v25] = usvdivision(HL25);
+if datalength>0
+iw = [iw,extract(U25(2,1),U25(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u25(2,1),u25(3,1))];
+datalength=datalength-1;
+end
+iLH25 = invsvd(U25,S25,V25);
+iHL25 = invsvd(u25,s25,v25);
+ib25=fourtoone(LL25,iLH25,iHL25,HH25);
+iB25=uint8(ib25);
+
+
+wblue = [iB1 iB2 iB3 iB4 iB5;iB6 iB7 iB8 iB9 iB10;iB11 iB12 iB13 iB14 iB15;iB16 iB17 iB18 iB19 iB20;iB21 iB22 iB23 iB24 iB25;];
+
+oimg = cat(3,redchannel,greenchannel,wblue);
+
+secretmsg = getsecretmsg(iw);
+disp('the secret message is...');
+disp(secretmsg);
+
+
+
+poissionattack.m
+
+
+
+img = imread('wimg.bmp');
+noise = imnoise(img,'poisson');
+figure , imshow(noise);
+title('image after poision attack');
+
+image = imresize(noise,[100 100]);
+redchannel = image(:,:,1);
+greenchannel = image(:,:,2);
+bluechannel = image(:,:,3);
+
+datalength=40;
+iw=[];
+
+
+B1=bluechannel(1:20,1:20);
+[LL1,LH1,HL1,HH1] = fourblocks(B1);
+[U1,S1,V1] = usvdivision(LH1);
+[u1,s1,v1] = usvdivision(HL1);
+if datalength>0
+    iw = [iw,extract(U1(2,1),U1(3,1))];
+    datalength=datalength-1;
+end
+if datalength>0
+    iw = [iw,extract(u1(2,1),u1(3,1))];
+    datalength=datalength-1;
+end
+iLH1 = invsvd(U1,S1,V1);
+iHL1 = invsvd(u1,s1,v1);
+ib1=fourtoone(LL1,iLH1,iHL1,HH1);
+iB1=uint8(ib1);
+
+
+
+
+B2=bluechannel(1:20,21:40);
+[LL2,LH2,HL2,HH2] = fourblocks(B2);
+[U2,S2,V2] = usvdivision(LH2);
+[u2,s2,v2] = usvdivision(HL2);
+if datalength>0
+iw = [iw,extract(U2(2,1),U2(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u2(2,1),u2(3,1))];
+datalength=datalength-1;
+end
+iLH2 = invsvd(U2,S2,V2);
+iHL2 = invsvd(u2,s2,v2);
+ib2=fourtoone(LL2,iLH2,iHL2,HH2);
+iB2=uint8(ib2);
+
+
+
+B3=bluechannel(1:20,41:60);
+[LL3,LH3,HL3,HH3] = fourblocks(B3);
+[U3,S3,V3] = usvdivision(LH3);
+[u3,s3,v3] = usvdivision(HL3);
+if datalength>0
+iw = [iw,extract(U3(2,1),U3(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u3(2,1),u3(3,1))];
+datalength=datalength-1;
+end
+iLH3 = invsvd(U3,S3,V3);
+iHL3 = invsvd(u3,s3,v3);
+ib3=fourtoone(LL3,iLH3,iHL3,HH3);
+iB3=uint8(ib3);
+ 
+
+B4=bluechannel(1:20,61:80);
+[LL4,LH4,HL4,HH4] = fourblocks(B4);
+[U4,S4,V4] = usvdivision(LH4);
+[u4,s4,v4] = usvdivision(HL4);
+if datalength>0
+iw = [iw,extract(U4(2,1),U4(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u4(2,1),u4(3,1))];
+datalength=datalength-1;
+end
+iLH4 = invsvd(U4,S4,V4);
+iHL4 = invsvd(u4,s4,v4);
+ib4=fourtoone(LL4,iLH4,iHL4,HH4);
+iB4=uint8(ib4);
+
+B5=bluechannel(1:20,81:100);
+[LL5,LH5,HL5,HH5] = fourblocks(B5);
+[U5,S5,V5] = usvdivision(LH5);
+[u5,s5,v5] = usvdivision(HL5);
+if datalength>0
+iw = [iw,extract(U5(2,1),U5(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u5(2,1),u5(3,1))];
+datalength=datalength-1;
+end
+iLH5 = invsvd(U5,S5,V5);
+iHL5 = invsvd(u5,s5,v5);
+ib5=fourtoone(LL5,iLH5,iHL5,HH5);
+iB5=uint8(ib5);
+
+B6=bluechannel(21:40,1:20);
+[LL6,LH6,HL6,HH6] = fourblocks(B6);
+[U6,S6,V6] = usvdivision(LH6);
+[u6,s6,v6] = usvdivision(HL6);
+if datalength>0
+  iw = [iw,extract(U6(2,1),U6(3,1))];
+  datalength=datalength-1;
+end
+if datalength>0
+  iw = [iw,extract(u6(2,1),u6(3,1))];
+  datalength=datalength-1;
+end
+iLH6 = invsvd(U6,S6,V6);
+iHL6 = invsvd(u6,s6,v6);
+ib6=fourtoone(LL6,iLH6,iHL6,HH6);
+iB6=uint8(ib6);
+
+
+B7=bluechannel(21:40,21:40);
+[LL7,LH7,HL7,HH7] = fourblocks(B7);
+[U7,S7,V7] = usvdivision(LH7);
+[u7,s7,v7] = usvdivision(HL7);
+if datalength>0
+iw = [iw,extract(U7(2,1),U7(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u7(2,1),u7(3,1))];
+datalength=datalength-1;
+end
+iLH7 = invsvd(U7,S7,V7);
+iHL7 = invsvd(u7,s7,v7);
+ib7=fourtoone(LL7,iLH7,iHL7,HH7);
+iB7=uint8(ib7);
+
+
+B8=bluechannel(21:40,41:60);
+[LL8,LH8,HL8,HH8] = fourblocks(B8);
+[U8,S8,V8] = usvdivision(LH8);
+[u8,s8,v8] = usvdivision(HL8);
+if datalength>0
+iw = [iw,extract(U8(2,1),U8(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u8(2,1),u8(3,1))];
+datalength=datalength-1;
+end
+iLH8 = invsvd(U8,S8,V8);
+iHL8 = invsvd(u8,s8,v8);
+ib8=fourtoone(LL8,iLH8,iHL8,HH8);
+iB8=uint8(ib8);
+
+
+B9=bluechannel(21:40,61:80);
+[LL9,LH9,HL9,HH9] = fourblocks(B9);
+[U9,S9,V9] = usvdivision(LH9);
+[u9,s9,v9] = usvdivision(HL9);
+if datalength>0
+iw = [iw,extract(U9(2,1),U9(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u9(2,1),u9(3,1))];
+datalength=datalength-1;
+end
+iLH9 = invsvd(U9,S9,V9);
+iHL9 = invsvd(u9,s9,v9);
+ib9=fourtoone(LL9,iLH9,iHL9,HH9);
+iB9=uint8(ib9);
+
+
+B10=bluechannel(21:40,81:100);
+[LL10,LH10,HL10,HH10] = fourblocks(B10);
+[U10,S10,V10] = usvdivision(LH10);
+[u10,s10,v10] = usvdivision(HL10);
+if datalength>0
+iw = [iw,extract(U10(2,1),U10(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u10(2,1),u10(3,1))];
+datalength=datalength-1;
+end
+iLH10 = invsvd(U10,S10,V10);
+iHL10 = invsvd(u10,s10,v10);
+ib10=fourtoone(LL10,iLH10,iHL10,HH10);
+iB10=uint8(ib10);
+
+
+B11=bluechannel(41:60,1:20);
+[LL11,LH11,HL11,HH11] = fourblocks(B11);
+[U11,S11,V11] = usvdivision(LH11);
+[u11,s11,v11] = usvdivision(HL11);
+if datalength>0
+iw = [iw,extract(U11(2,1),U11(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u11(2,1),u11(3,1))];
+datalength=datalength-1;
+end
+iLH11 = invsvd(U11,S11,V11);
+iHL11 = invsvd(u11,s11,v11);
+ib11=fourtoone(LL11,iLH11,iHL11,HH11);
+iB11=uint8(ib11);
+
+B12=bluechannel(41:60,21:40);
+[LL12,LH12,HL12,HH12] = fourblocks(B12);
+[U12,S12,V12] = usvdivision(LH12);
+[u12,s12,v12] = usvdivision(HL12);
+if datalength>0
+iw = [iw,extract(U12(2,1),U12(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u12(2,1),u12(3,1))];
+datalength=datalength-1;
+end
+iLH12 = invsvd(U12,S12,V12);
+iHL12 = invsvd(u12,s12,v12);
+ib12=fourtoone(LL12,iLH12,iHL12,HH12);
+iB12=uint8(ib12);
+
+B13=bluechannel(41:60,41:60);
+[LL13,LH13,HL13,HH13] = fourblocks(B13);
+[U13,S13,V13] = usvdivision(LH13);
+[u13,s13,v13] = usvdivision(HL13);
+if datalength>0
+iw = [iw,extract(U13(2,1),U13(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u13(2,1),u13(3,1))];
+datalength=datalength-1;
+end
+iLH13 = invsvd(U13,S13,V13);
+iHL13 = invsvd(u13,s13,v13);
+ib13=fourtoone(LL13,iLH13,iHL13,HH13);
+iB13=uint8(ib13);
+
+
+B14=bluechannel(41:60,61:80);
+[LL14,LH14,HL14,HH14] = fourblocks(B14);
+[U14,S14,V14] = usvdivision(LH14);
+[u14,s14,v14] = usvdivision(HL14);
+if datalength>0
+iw = [iw,extract(U14(2,1),U14(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u14(2,1),u14(3,1))];
+datalength=datalength-1;
+end
+iLH14 = invsvd(U14,S14,V14);
+iHL14 = invsvd(u14,s14,v14);
+ib14=fourtoone(LL14,iLH14,iHL14,HH14);
+iB14=uint8(ib14);
+
+
+B15=bluechannel(41:60,81:100);
+[LL15,LH15,HL15,HH15] = fourblocks(B15);
+[U15,S15,V15] = usvdivision(LH15);
+[u15,s15,v15] = usvdivision(HL15);
+if datalength>0
+iw = [iw,extract(U15(2,1),U15(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u15(2,1),u15(3,1))];
+datalength=datalength-1;
+end
+iLH15 = invsvd(U15,S15,V15);
+iHL15 = invsvd(u15,s15,v15);
+ib15=fourtoone(LL15,iLH15,iHL15,HH15);
+iB15=uint8(ib15);
+
+
+B16=bluechannel(61:80,1:20);
+[LL16,LH16,HL16,HH16] = fourblocks(B16);
+[U16,S16,V16] = usvdivision(LH16);
+[u16,s16,v16] = usvdivision(HL16);
+if datalength>0
+iw = [iw,extract(U16(2,1),U16(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u16(2,1),u16(3,1))];
+datalength=datalength-1;
+end
+iLH16 = invsvd(U16,S16,V16);
+iHL16 = invsvd(u16,s16,v16);
+ib16=fourtoone(LL16,iLH16,iHL16,HH16);
+iB16=uint8(ib16);
+
+
+B17=bluechannel(61:80,21:40);
+[LL17,LH17,HL17,HH17] = fourblocks(B17);
+[U17,S17,V17] = usvdivision(LH17);
+[u17,s17,v17] = usvdivision(HL17);
+if datalength>0
+iw = [iw,extract(U17(2,1),U17(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u17(2,1),u17(3,1))];
+datalength=datalength-1;
+end
+iLH17 = invsvd(U17,S17,V17);
+iHL17 = invsvd(u17,s17,v17);
+ib17=fourtoone(LL17,iLH17,iHL17,HH17);
+iB17=uint8(ib17);
+
+
+B18=bluechannel(61:80,41:60);
+[LL18,LH18,HL18,HH18] = fourblocks(B18);
+[U18,S18,V18] = usvdivision(LH18);
+[u18,s18,v18] = usvdivision(HL18);
+if datalength>0
+iw = [iw,extract(U18(2,1),U18(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u18(2,1),u18(3,1))];
+datalength=datalength-1;
+end
+iLH18 = invsvd(U18,S18,V18);
+iHL18 = invsvd(u18,s18,v18);
+ib18=fourtoone(LL18,iLH18,iHL18,HH18);
+iB18=uint8(ib18);
+
+
+B19=bluechannel(61:80,61:80);
+[LL19,LH19,HL19,HH19] = fourblocks(B19);
+[U19,S19,V19] = usvdivision(LH19);
+[u19,s19,v19] = usvdivision(HL19);
+if datalength>0
+iw = [iw,extract(U19(2,1),U19(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u19(2,1),u19(3,1))];
+datalength=datalength-1;
+end
+iLH19 = invsvd(U19,S19,V19);
+iHL19 = invsvd(u19,s19,v19);
+ib19=fourtoone(LL19,iLH19,iHL19,HH19);
+iB19=uint8(ib19);
+
+
+B20=bluechannel(61:80,81:100);
+[LL20,LH20,HL20,HH20] = fourblocks(B20);
+[U20,S20,V20] = usvdivision(LH20);
+[u20,s20,v20] = usvdivision(HL20);
+if datalength>0
+iw = [iw,extract(U20(2,1),U20(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u20(2,1),u20(3,1))];
+datalength=datalength-1;
+end
+iLH20 = invsvd(U20,S20,V20);
+iHL20 = invsvd(u20,s20,v20);
+ib20=fourtoone(LL20,iLH20,iHL20,HH20);
+iB20=uint8(ib20);
+
+
+B21=bluechannel(81:100,1:20);
+[LL21,LH21,HL21,HH21] = fourblocks(B21);
+[U21,S21,V21] = usvdivision(LH21);
+[u21,s21,v21] = usvdivision(HL21);
+if datalength>0
+iw = [iw,extract(U21(2,1),U21(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u21(2,1),u21(3,1))];
+datalength=datalength-1;
+end
+iLH21 = invsvd(U21,S21,V21);
+iHL21 = invsvd(u21,s21,v21);
+ib21=fourtoone(LL21,iLH21,iHL21,HH21);
+iB21=uint8(ib21);
+
+
+B22=bluechannel(81:100,21:40);
+[LL22,LH22,HL22,HH22] = fourblocks(B22);
+[U22,S22,V22] = usvdivision(LH22);
+[u22,s22,v22] = usvdivision(HL22);
+if datalength>0
+iw = [iw,extract(U22(2,1),U22(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u22(2,1),u22(3,1))];
+datalength=datalength-1;
+end
+iLH22 = invsvd(U22,S22,V22);
+iHL22 = invsvd(u22,s22,v22);
+ib22=fourtoone(LL22,iLH22,iHL22,HH22);
+iB22=uint8(ib22);
+
+
+B23=bluechannel(81:100,41:60);
+[LL23,LH23,HL23,HH23] = fourblocks(B23);
+[U23,S23,V23] = usvdivision(LH23);
+[u23,s23,v23] = usvdivision(HL23);
+if datalength>0
+iw = [iw,extract(U23(2,1),U23(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u23(2,1),u23(3,1))];
+datalength=datalength-1;
+end
+iLH23 = invsvd(U23,S23,V23);
+iHL23 = invsvd(u23,s23,v23);
+ib23=fourtoone(LL23,iLH23,iHL23,HH23);
+iB23=uint8(ib23);
+
+
+B24=bluechannel(81:100,61:80);
+[LL24,LH24,HL24,HH24] = fourblocks(B24);
+[U24,S24,V24] = usvdivision(LH24);
+[u24,s24,v24] = usvdivision(HL24);
+if datalength>0
+iw = [iw,extract(U24(2,1),U24(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u24(2,1),u24(3,1))];
+datalength=datalength-1;
+end
+iLH24 = invsvd(U24,S24,V24);
+iHL24 = invsvd(u24,s24,v24);
+ib24=fourtoone(LL24,iLH24,iHL24,HH24);
+iB24=uint8(ib24);
+
+
+B25=bluechannel(81:100,81:100);
+[LL25,LH25,HL25,HH25] = fourblocks(B25);
+[U25,S25,V25] = usvdivision(LH25);
+[u25,s25,v25] = usvdivision(HL25);
+if datalength>0
+iw = [iw,extract(U25(2,1),U25(3,1))];
+datalength=datalength-1;
+end
+if datalength>0
+iw = [iw,extract(u25(2,1),u25(3,1))];
+datalength=datalength-1;
+end
+iLH25 = invsvd(U25,S25,V25);
+iHL25 = invsvd(u25,s25,v25);
+ib25=fourtoone(LL25,iLH25,iHL25,HH25);
+iB25=uint8(ib25);
+
+
+wblue = [iB1 iB2 iB3 iB4 iB5;iB6 iB7 iB8 iB9 iB10;iB11 iB12 iB13 iB14 iB15;iB16 iB17 iB18 iB19 iB20;iB21 iB22 iB23 iB24 iB25;];
+
+oimg = cat(3,redchannel,greenchannel,wblue);
+
+secretmsg = getsecretmsg(iw);
+disp('the secret message is...');
+disp(secretmsg);
+
+
+
+
+
